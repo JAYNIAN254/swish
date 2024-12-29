@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Pacifico', cursive;
+            background: linear-gradient(45deg, #ffd1dc, #ffffff);
+            color: black;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 3rem;
+            color: #ff69b4;
+        }
+
+        nav {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.5rem;
+            color: black;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ff69b4;
+        }
+
+        .trivia {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .trivia button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background: #ff69b4;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .trivia button:hover {
+            transform: scale(1.1);
+        }
+
+        #triviaText {
+            margin-top: 20px;
+            font-size: 2rem;
+            color: #ff69b4;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>About This Website</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="plans.html">My Plans with You</a>
+        <a href="chat.html">Chat</a>
+    </nav>
+    <div class="trivia">
+        <p>Click the button below to see how much I adore you!</p>
+        <button onclick="rotatePhrases()">Click Me!</button>
+        <p id="triviaText">MISS P DRIVES ME CRAZY</p>
+    </div>
+    <script>
+        const phrases = [
+            "MISS P DRIVES ME CRAZY",
+            "SHE'S THE PRETTIEST GIRL I KNOW",
+            "TILL DEATH",
+            "YOU'RE THE SUNSHINE IN MY LIFE",
+            "MY HEART SKIPS A BEAT FOR YOU",
+            "YOU'RE MY FOREVER PERSON",
+        ];
+        let index = 0;
+
+        function rotatePhrases() {
+            index = (index + 1) % phrases.length; // Cycle through the phrases
+            const textElement = document.getElementById("triviaText");
+            textElement.textContent = phrases[index];
+
+            // Optional: Add fade-in animation each time the phrase changes
+            textElement.style.animation = "none"; // Reset animation
+            setTimeout(() => {
+                textElement.style.animation = "fadeIn 1s ease-in-out";
+            }, 10);
+        }
+    </script>
+</body>
+</html>
