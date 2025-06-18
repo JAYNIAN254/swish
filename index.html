@@ -268,26 +268,26 @@
             color: var(--text);
         }
 
-        /* Memories Section */
-        .memories {
+        /* Expressions Section */
+        .expressions {
             margin: 100px 0;
             text-align: center;
         }
 
-        .memories h2 {
+        .expressions h2 {
             color: var(--primary);
             font-size: 2.8rem;
             margin-bottom: 50px;
             font-family: 'Pacifico', cursive;
         }
 
-        .memory-cards {
+        .expression-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
 
-        .memory-card {
+        .expression-card {
             background: white;
             border-radius: 20px;
             overflow: hidden;
@@ -296,7 +296,7 @@
             position: relative;
         }
 
-        .memory-card:hover {
+        .expression-card:hover {
             transform: translateY(-15px);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
         }
@@ -523,37 +523,37 @@
             </div>
         </section>
 
-        <section class="memories fade-in">
-            <h2>Our Precious Memories</h2>
+        <section class="expressions fade-in">
+            <h2>Our Love Expressions</h2>
             
-            <div class="memory-cards">
-                <div class="memory-card">
+            <div class="expression-cards">
+                <div class="expression-card">
                     <div class="card-image">
-                        <i class="fas fa-camera"></i>
+                        <i class="fas fa-heart-circle-check"></i>
                     </div>
                     <div class="card-content">
-                        <h3>First Meeting</h3>
-                        <p>The moment our eyes met and my life changed forever</p>
+                        <h3>Reasons I Love You</h3>
+                        <p>All the little things that make you so special to me</p>
                     </div>
                 </div>
                 
-                <div class="memory-card">
+                <div class="expression-card">
                     <div class="card-image">
-                        <i class="fas fa-heart"></i>
+                        <i class="fas fa-envelope-open-heart"></i>
                     </div>
                     <div class="card-content">
-                        <h3>Special Moments</h3>
-                        <p>Every second with you becomes a cherished memory</p>
+                        <h3>Love Notes</h3>
+                        <p>Sweet messages from my heart to yours</p>
                     </div>
                 </div>
                 
-                <div class="memory-card">
+                <div class="expression-card">
                     <div class="card-image">
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-handshake-heart"></i>
                     </div>
                     <div class="card-content">
-                        <h3>Future Dreams</h3>
-                        <p>All the adventures we'll share in the years to come</p>
+                        <h3>Our Promises</h3>
+                        <p>Commitments I'll always keep to you</p>
                     </div>
                 </div>
             </div>
@@ -573,6 +573,9 @@
     </footer>
 
     <script>
+        // Set our relationship start date (change this to your actual start date)
+        const startDate = new Date('2023-06-01');
+        
         // Initialize counters with animation
         function animateCounter(element, start, end, duration) {
             let startTimestamp = null;
@@ -587,6 +590,40 @@
             };
             window.requestAnimationFrame(step);
         }
+        
+        // Calculate days together
+        function calculateDaysTogether() {
+            const today = new Date();
+            const diffTime = Math.abs(today - startDate);
+            return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        }
+        
+        // Update days counter with current day count
+        function updateDaysCounter() {
+            const daysElement = document.getElementById('daysCount');
+            const daysTogether = calculateDaysTogether();
+            daysElement.textContent = daysTogether;
+        }
+        
+        // Check daily if a new day has started
+        function setupDailyUpdate() {
+            // Update now
+            updateDaysCounter();
+            
+            // Set up daily check at 12:05 AM
+            const now = new Date();
+            const nextUpdate = new Date();
+            nextUpdate.setDate(nextUpdate.getDate() + 1);
+            nextUpdate.setHours(0, 5, 0, 0);
+            
+            const timeUntilUpdate = nextUpdate - now;
+            
+            setTimeout(() => {
+                updateDaysCounter();
+                // Set recurring daily update
+                setInterval(updateDaysCounter, 24 * 60 * 60 * 1000);
+            }, timeUntilUpdate);
+        }
 
         // Initialize animations and counters
         document.addEventListener('DOMContentLoaded', function() {
@@ -598,7 +635,10 @@
             
             // Initialize counters after a delay
             setTimeout(() => {
-                animateCounter(document.getElementById('daysCount'), 0, 365, 2000);
+                // Set up days counter to auto-update daily
+                setupDailyUpdate();
+                
+                // Initialize other counters
                 animateCounter(document.getElementById('smilesCount'), 0, 10000, 2500);
                 animateCounter(document.getElementById('loveCount'), 0, 9999, 3000);
             }, 1500);
