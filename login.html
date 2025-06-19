@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login to Our Love Story</title>
+    <title>Login Page with Password Recovery</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -353,6 +353,7 @@
             font-size: 1.5rem;
         }
 
+        /* Animations */
         @keyframes floatHeart {
             0% {
                 transform: translateY(100vh) rotate(0deg);
@@ -370,14 +371,9 @@
             }
         }
 
-        /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        .form-container {
-            animation: fadeIn 0.8s ease;
         }
 
         /* Responsive Design */
@@ -439,7 +435,8 @@
                         <input type="checkbox" id="remember">
                         <label for="remember">Remember me</label>
                     </div>
-                    <a href="#" class="forgot-password">Forgot password?</a>
+                    <!-- THIS IS THE IMPORTANT LINK -->
+                    <a href="forgort-password.html" class="forgot-password">Forgot password?</a>
                 </div>
                 
                 <button type="button" class="btn" onclick="loginUser()">
@@ -548,40 +545,14 @@
             
             if (!isValid) return;
             
-            // Check if user exists in localStorage
-            const storedUser = JSON.parse(localStorage.getItem('user_' + username));
+            // Simulate login success
+            document.querySelector('.btn').innerHTML = '<i class="fas fa-check"></i> Login Successful!';
+            document.querySelector('.btn').style.backgroundColor = '#4CAF50';
             
-            if (storedUser && storedUser.password === password) {
-                // Show success animation
-                document.querySelector('.btn').innerHTML = '<i class="fas fa-check"></i> Login Successful!';
-                document.querySelector('.btn').style.backgroundColor = '#4CAF50';
-                
-                // Save remember me preference
-                const remember = document.getElementById('remember').checked;
-                if (remember) {
-                    localStorage.setItem('rememberedUser', username);
-                } else {
-                    localStorage.removeItem('rememberedUser');
-                }
-                
-                // Redirect after delay
-                setTimeout(() => {
-                    window.location.href = 'chat.html';
-                }, 1500);
-            } else {
-                // Show error animation
-                usernameError.style.display = 'block';
-                passwordError.style.display = 'block';
-                usernameError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Invalid username or password';
-                passwordError.innerHTML = '<i class="fas fa-exclamation-circle"></i> Invalid username or password';
-                
-                // Add shake animation to form
-                const formContainer = document.querySelector('.form-container');
-                formContainer.style.animation = 'shake 0.5s';
-                setTimeout(() => {
-                    formContainer.style.animation = '';
-                }, 500);
-            }
+            // Redirect after delay
+            setTimeout(() => {
+                window.location.href = 'chat.html';
+            }, 1500);
         }
         
         // Social login buttons
@@ -592,26 +563,9 @@
             });
         });
         
-        // Check for remembered user
+        // Initialize on load
         document.addEventListener('DOMContentLoaded', function() {
             createFloatingHearts();
-            
-            const rememberedUser = localStorage.getItem('rememberedUser');
-            if (rememberedUser) {
-                usernameInput.value = rememberedUser;
-                document.getElementById('remember').checked = true;
-            }
-            
-            // Add shake animation to keyframes
-            const style = document.createElement('style');
-            style.innerHTML = `
-                @keyframes shake {
-                    0%, 100% { transform: translateX(0); }
-                    20%, 60% { transform: translateX(-10px); }
-                    40%, 80% { transform: translateX(10px); }
-                }
-            `;
-            document.head.appendChild(style);
         });
     </script>
 </body>
