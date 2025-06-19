@@ -30,6 +30,8 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
         body::before {
@@ -50,6 +52,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            flex: 1;
         }
 
         /* Header & Navigation */
@@ -294,11 +297,48 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             transition: var(--transition);
             position: relative;
+            cursor: pointer;
+            height: 400px;
+            perspective: 1000px;
         }
 
         .expression-card:hover {
             transform: translateY(-15px);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .expression-card .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .expression-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .expression-card .card-front,
+        .expression-card .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .expression-card .card-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(45deg, #ffd1dc, #ff69b4);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .card-image {
@@ -313,6 +353,10 @@
 
         .card-content {
             padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .card-content h3 {
@@ -326,12 +370,32 @@
             line-height: 1.6;
         }
 
+        .reasons-list, .notes-list, .promises-list {
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .reasons-list li, .notes-list li, .promises-list li {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .reasons-list li:hover, .notes-list li:hover, .promises-list li:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: translateX(5px);
+        }
+
         /* Footer */
         footer {
             background: rgba(255, 255, 255, 0.9);
             padding: 50px 0 30px;
             text-align: center;
-            margin-top: 100px;
+            margin-top: auto;
             border-top: 2px solid var(--secondary);
         }
 
@@ -414,6 +478,14 @@
             nav ul {
                 flex-direction: column;
                 gap: 15px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
             }
             
             .hero h1 {
@@ -528,32 +600,82 @@
             
             <div class="expression-cards">
                 <div class="expression-card">
-                    <div class="card-image">
-                        <i class="fas fa-heart-circle-check"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Reasons I Love You</h3>
-                        <p>All the little things that make you so special to me</p>
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="card-image">
+                                <i class="fas fa-heart-circle-check"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Reasons I Love You</h3>
+                                <p>Hover to see all the reasons why you're so special to me</p>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h3>Reasons I Love You</h3>
+                            <ul class="reasons-list">
+                                <li>Your smile brightens my darkest days</li>
+                                <li>The way you make me laugh like no one else</li>
+                                <li>Your kindness and compassion for others</li>
+                                <li>How you always know what to say to make me feel better</li>
+                                <li>The way you challenge me to be a better person</li>
+                                <li>Your intelligence and the way you see the world</li>
+                                <li>How safe and loved I feel when I'm with you</li>
+                                <li>Your passion for the things you care about</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="expression-card">
-                    <div class="card-image">
-                        <i class="fas fa-envelope-open-heart"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Love Notes</h3>
-                        <p>Sweet messages from my heart to yours</p>
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="card-image">
+                                <i class="fas fa-envelope-open-heart"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Love Notes</h3>
+                                <p>Hover to read sweet messages from my heart to yours</p>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h3>Love Notes to You</h3>
+                            <ul class="notes-list">
+                                <li>"Every moment with you feels like a beautiful dream I never want to wake up from."</li>
+                                <li>"Your love is the anchor that keeps me grounded in this chaotic world."</li>
+                                <li>"I fall for you more every day, with every smile, every laugh, every glance."</li>
+                                <li>"You're not just my lover, you're my best friend, my confidant, my everything."</li>
+                                <li>"Loving you is the easiest and most natural thing I've ever done."</li>
+                                <li>"In your arms, I've found my home - the place I belong more than anywhere else."</li>
+                                <li>"Thank you for seeing the real me and loving me exactly as I am."</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="expression-card">
-                    <div class="card-image">
-                        <i class="fas fa-handshake-heart"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>Our Promises</h3>
-                        <p>Commitments I'll always keep to you</p>
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="card-image">
+                                <i class="fas fa-handshake-heart"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Our Promises</h3>
+                                <p>Hover to see the commitments I'll always keep to you</p>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h3>My Promises to You</h3>
+                            <ul class="promises-list">
+                                <li>I promise to always support your dreams and aspirations</li>
+                                <li>I promise to be honest with you, even when it's difficult</li>
+                                <li>I promise to listen with an open heart and without judgment</li>
+                                <li>I promise to cherish and appreciate you every single day</li>
+                                <li>I promise to work through challenges with patience and understanding</li>
+                                <li>I promise to keep our relationship exciting and full of surprises</li>
+                                <li>I promise to be your safe place to land when the world feels overwhelming</li>
+                                <li>I promise to love you more each day than I did the day before</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -649,9 +771,25 @@
             
             if(menuBtn) {
                 menuBtn.addEventListener('click', () => {
-                    nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+                    const isVisible = nav.style.display === 'flex';
+                    nav.style.display = isVisible ? 'none' : 'flex';
+                    menuBtn.innerHTML = isVisible ? '<i class="fas fa-bars"></i>' : '<i class="fas fa-times"></i>';
                 });
             }
+            
+            // Add hover effect to list items
+            const listItems = document.querySelectorAll('.reasons-list li, .notes-list li, .promises-list li');
+            listItems.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    item.style.transform = 'translateX(5px)';
+                    item.style.background = 'rgba(255, 255, 255, 0.4)';
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = 'translateX(0)';
+                    item.style.background = 'rgba(255, 255, 255, 0.2)';
+                });
+            });
         });
     </script>
 </body>
